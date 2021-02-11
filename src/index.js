@@ -19,7 +19,7 @@ app.get('/home', (req, res) => {
   res.send('Welcome to GoZem Test API ');
 });
 
-app.post('/api/get_distance_and_time', (req, res) => {
+app.post('/api/distance_and_time', (req, res) => {
   if (Object.keys(req.body).length === 0) {
     return res.status(400).send({
       message: 'Define properties in body',
