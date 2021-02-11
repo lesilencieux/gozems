@@ -7,7 +7,7 @@ node : 14.15.5 or hightler
 # just run this commant
 Firstly clone this repository on gitub
 
-$ git clone https://github.com/lesilencieux/gozems.git
+$ git clone -b master https://github.com/lesilencieux/gozems.git
 
 $ cd gozems
 $ npm run dev
