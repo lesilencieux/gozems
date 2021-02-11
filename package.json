@@ -1,0 +1,22 @@
+{
+  "name": "gozem_test",
+  "version": "1.0.0",
+  "description": "Test for gozem",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test",
+    "dev": "env-cmd -f config/dev.env nodemon  src/index_save.js"
+  },
+  "keywords": [
+    "test"
+  ],
+  "author": "hilaire",
+  "license": "ISC",
+  "dependencies": {
+    "env-cmd": "^10.1.0",
+    "google-distance-matrix": "^1.1.1",
+    "node-google-timezone": "^0.1.1",
+    "nodemon": "^2.0.7",
+    "reverse-geocoding-google": "^1.1.0"
+  }
+}
