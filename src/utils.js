@@ -1,4 +1,4 @@
-function getCountryByCoordinate(lat, lng, cb) {
+/* function getCountryByCoordinate(lat, lng, cb) {
     var geocoding = new require('reverse-geocoding-google');
     var result = 'null'
     var params = {
@@ -18,7 +18,35 @@ function getCountryByCoordinate(lat, lng, cb) {
         }
 
     });
-}
+
+} */
+
+const { isInt } = require('validator');
+
+function getCountryByCoordinate(lat, lng, cb) {
+    var geocoding = new require('reverse-geocoding-google');
+    var result = 'null';
+    var params = {
+      latitude: lat,
+      longitude: lng,
+      key: process.env.API_KEY,
+    };
+    geocoding.location(params, function (err, data) {
+      if (err) {
+        console.log(err);
+        return cb(null, err);
+      } else {
+        const address_components = data.results[0].address_components;
+        r = address_components[address_components.length - 1].long_name;
+        if (isInt(r)) {
+          result = address_components[address_components.length - 2].long_name;
+        } else {
+          result = address_components[address_components.length - 1].long_name;
+        }
+        return cb(result);
+      }
+    });
+  }
 
 function getTimeZoneInfoUsingCoordinates(lat, lng, cb) {
     var result = 'null'
