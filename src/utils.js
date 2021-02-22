@@ -24,7 +24,6 @@ function getTimeZoneInfoUsingCoordinates(lat, lng, cb) {
     var result = 'null'
     var timezone = require('node-google-timezone');
     var timestamp = Date.now() / 1000;
-    console.log('timestamp', timestamp);
     timezone.key(process.env.API_KEY);
     timezone.data(lat, lng, timestamp, function (err, tz) {
         if (err) {
@@ -54,11 +53,20 @@ function calculteDistanceBetweenTwoCoordonates(origin, dest, units, cb) {
     var destinations = [dest];
     distance.key(process.env.API_KEY)
     distance.units(units)
+
     distance.matrix(origins, destinations, function (err, distances) {
         if (err) {
             console.log(err);
             return cb(err);
-        } else {
+        } else if(distances.rows[0].elements[0].status=="ZERO_RESULTS") {
+            console.log(distances.rows[0].elements[0]);
+            // S = Math.acos(Math.sin(latA)*Math.sin(latB) + Math.cos(latA)*Math.cos(latB)*Math.cos(abs(longB-longA)))
+            var S = Math.acos(Math.sin(origin[0])*Math.sin(dest[0]) + Math.cos(origin[0])*Math.cos(dest[0])*Math.cos(Math.abs(dest[1]-origin[1])));
+            super_distance = S*6378137;
+            var res =  Math.round(super_distance,100);
+            return cb(res/1000+" Km");
+        }
+        else{
             result = distances.rows[0].elements[0].distance.text;
             return cb(result);
         }

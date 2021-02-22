@@ -22,14 +22,14 @@ app.get('/home', (req, res) => {
 app.post('/api/distance_and_time', (req, res) => {
     if (Object.keys(req.body).length === 0) {
         return res.status(400).send({
-            message: "Define properties in body"
+            message: "Please define the properties in body"
         });
     } else if (req.body.hasOwnProperty('start') && req.body.hasOwnProperty('end') &&
         req.body.hasOwnProperty('units')) {
             finalResult(req, res);
     } else {
         return res.status(400).send({
-            message: "Verify properties"
+            message: "Please check you properties"
         });
     }
 });
